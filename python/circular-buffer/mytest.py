@@ -1,0 +1,18 @@
+from circular_buffer_v2 import CircularBuffer
+
+buf = CircularBuffer(2)
+buf.see()
+buf.clear()
+buf.see()
+buf.write("1")
+buf.see()
+buf.write("2")
+buf.see()
+buf.overwrite("3")
+buf.see()
+buf.overwrite("4")
+buf.see()
+buf.read()
+buf.see()
+buf.read()
+buf.see()
