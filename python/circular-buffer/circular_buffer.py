@@ -14,14 +14,28 @@ class CircularBuffer:
         self.buffer = []
 
     def read(self):
-        return self.buffer[-1]
+        if len(self.buffer) > 0:
+            return self.buffer.pop(0)
+
+        else:
+            raise BufferEmptyException("Circular buffer is empty")
 
     def write(self, data):
-        self.buffer.append(data)
-        return self.read()
+        if len(self.buffer) < self.capacity:
+            self.buffer.append(data)
+        else:
+            raise BufferFullException("Circular buffer is full")
 
     def overwrite(self, data):
-        pass
+        if len(self.buffer) < self.capacity:
+            self.write(data)
+        else:
+            self.buffer.pop(0)
+            self.buffer.append(data)
 
     def clear(self):
-        pass
+        if len(self.buffer) != 0:
+            self.buffer.pop(0)
+
+    def see(self):
+        print(self.buffer)
