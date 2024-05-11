@@ -1,0 +1,1 @@
+{'Kiwi': [3, 'Aisle 6', False], 'Juice': [5, 'Aisle 5', False], 'Yoghurt': [2, 'Aisle 2', True], 'Milk': [5, 'Aisle 2', True]}
