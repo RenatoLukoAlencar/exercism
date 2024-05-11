@@ -1,32 +1,24 @@
 class BufferFullException(BufferError):
-    """Exception raised when CircularBuffer is full.
-
-    message: explanation of the error.
-
-    """
     def __init__(self, message):
-        pass
+        self.message = message
 
 
 class BufferEmptyException(BufferError):
-    """Exception raised when CircularBuffer is empty.
-
-    message: explanation of the error.
-
-    """
     def __init__(self, message):
-        pass
+        self.message = message
 
 
 class CircularBuffer:
     def __init__(self, capacity):
-        pass
+        self.capacity = capacity
+        self.buffer = []
 
     def read(self):
-        pass
+        return self.buffer[-1]
 
     def write(self, data):
-        pass
+        self.buffer.append(data)
+        return self.read()
 
     def overwrite(self, data):
         pass
