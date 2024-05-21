@@ -11,10 +11,17 @@ def label(colors):
         "grey": 8,
         "white": 9,
     }
-    total = f"{color[colors[0]]}{color[colors[1]]}{'0'*color[colors[2]]}"
-    notZeros = total[0 : total.index(0)]
-    zeros = len(total[total.index("0") :])
-    sufix = "kiloohms" if zeros >= 3 and zeros < 6 else "gigaohms"
-    print(f"total of {zeros}")
+    total = int(f"{color[colors[0]]}{color[colors[1]]}{'0'*color[colors[2]]}")
 
-    return f"{notZeros}"
+    res = ""
+
+    if total >= 999999999:
+        res = f"{int(total/1000000000)} gigaohms"
+    elif total >= 999999:
+        res = f"{int(total /1000000)} megaohms"
+    elif total >= 999:
+        res = f"{int(total /1000)} kiloohms"
+    else:
+        res = f"{total} ohms"
+
+    return res
