@@ -4,5 +4,6 @@ def recite(start_verse, end_verse):
         splitter
     )
     res = splitter.join(poem[-(start_verse + 1) :])
+    test = " ".join(poem[-start_verse].split(" ")[2:])
     sub = res.split(" ")[2] if res.split(" ")[2] != "the" else ""
     return [f"This is the {sub} {' '.join(res.split(' ')[3:])}".replace("  ", " ")]
