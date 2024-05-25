@@ -12,7 +12,6 @@ def annotate(minefield):
         mx = len(minefield)
         my = len(minefield[0])
         board = [" " for _ in range(my) for _ in range(mx)]
-        print(f"mx: {mx}, my: {my}")
 
         return board
     except:
