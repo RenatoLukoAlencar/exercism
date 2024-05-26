@@ -1,41 +1,52 @@
 class BufferFullException(BufferError):
     def __init__(self, message):
-        self.message = message
+        super().__init__(message)
 
 
 class BufferEmptyException(BufferError):
     def __init__(self, message):
-        self.message = message
+        super().__init__(message)
 
 
 class CircularBuffer:
     def __init__(self, capacity):
         self.capacity = capacity
-        self.buffer = []
+        self.buffer = ["" for _ in range(capacity)]
+        self.readIndex = 0
+        self.writeIndex = 0
 
     def read(self):
-        if len(self.buffer) > 0:
-            return self.buffer.pop(0)
+        if self.buffer[self.readIndex] != "":
+            res = self.buffer[self.readIndex]
+            self.buffer[self.readIndex] = ""
+            self.readIndex = (
+                0 if self.readIndex == self.capacity - 1 else self.readIndex + 1
+            )
+            return res
 
         else:
             raise BufferEmptyException("Circular buffer is empty")
 
     def write(self, data):
-        if len(self.buffer) < self.capacity:
-            self.buffer.append(data)
+        if self.buffer[self.writeIndex] == "":
+            self.buffer[self.writeIndex] = data
+            self.writeIndex = (
+                0 if self.writeIndex == self.capacity - 1 else self.writeIndex + 1
+            )
         else:
             raise BufferFullException("Circular buffer is full")
 
     def overwrite(self, data):
-        if len(self.buffer) < self.capacity:
+        if self.buffer[self.writeIndex] == "":
             self.write(data)
         else:
-            self.buffer.pop(0)
-            self.buffer.append(data)
+            self.buffer[self.writeIndex] = data
+            self.writeIndex = (
+                0 if self.writeIndex == self.capacity - 1 else self.writeIndex + 1
+            )
+            self.readIndex = (
+                0 if self.readIndex == self.capacity - 1 else self.readIndex + 1
+            )
 
     def clear(self):
-        if len(self.buffer) != 0:
-            self.buffer.pop(0)
-
-    def see(self):
-        print(self.buffer)
+        self.buffer = ["" for _ in range(self.capacity)]
