@@ -19,13 +19,17 @@ UNEQUAL = 4
 
 
 def sublist(list_one, list_two):
-    a = set(list_one)
-    b = set(list_two)
-    if a == b:
+    a, sa = set(list_one), ",".join(str(x) for x in list_one)
+    b, sb = set(list_two), ",".join(str(x) for x in list_two)
+
+    if list_one == list_two:
         return EQUAL
-    elif a.issubset(b):
+
+    elif (not list_one and len(list_two) > 0) or ((sa in sb) and a.issubset(b)):
         return SUBLIST
-    elif a.issuperset(b):
+
+    elif (len(list_one) > 0 and not list_two) or ((sb in sa) and a.issuperset(b)):
         return SUPERLIST
+
     else:
         return UNEQUAL
