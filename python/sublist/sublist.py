@@ -12,15 +12,20 @@ You can learn more here: https://en.wikipedia.org/wiki/Enumerated_type
 
 # Possible sublist categories.
 # Change the values as you see fit.
-SUBLIST = None
-SUPERLIST = None
-EQUAL = None
-UNEQUAL = None
+SUBLIST = 1
+SUPERLIST = 2
+EQUAL = 3
+UNEQUAL = 4
 
 
 def sublist(list_one, list_two):
     a = set(list_one)
     b = set(list_two)
-    print(f"a: {a}\nb: {b}")
-
-    pass
+    if a == b:
+        return EQUAL
+    elif a.issubset(b):
+        return SUBLIST
+    elif a.issuperset(b):
+        return SUPERLIST
+    else:
+        return UNEQUAL
