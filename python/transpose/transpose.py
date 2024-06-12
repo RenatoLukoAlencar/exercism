@@ -1,18 +1,14 @@
 def transpose(lines):
-    print(f"lines: {lines}")
-    res = []
+    splited, res = lines.split("\n"), []
 
-    for index, item in enumerate(lines):
-        print(f"i: {index}, item: {item}")
+    for indexw, word in enumerate(splited):
+        for index, letter in enumerate(word):
+            if len(res) < index + 1:
+                res.append([])
 
-        if len(res) - 1 < index:
-            res.append([])
+            while len(res[index]) < indexw:
+                res[index].append(" ")
 
-        res[index].append(item)
+            res[index] += letter
 
-    for index, line in enumerate(res):
-        res[index] = "".join(line)
-
-    print(f"res: {res}")
-
-    return res
+    return "\n".join(["".join(word) for word in res])
