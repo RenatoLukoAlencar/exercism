@@ -15,37 +15,25 @@ CHOICE = 11
 
 
 def score(dice, category):
-    res = 0
+    r, s = 0, set(dice)
     match category:
         case 0:
-            res = 50 if len(set(dice)) == 1 else 0
+            r = 50 if len(s) == 1 else 0
         case 7:
-            res = sum(dice) if len(set(dice)) == 2 else 0
+            r = sum(dice) if len(s) == 2 and dice.count(dice[0]) in [2, 3] else 0
         case 8:
-            sete = set(dice)
-            if len(sete) == 2:
-                first, second = sete
-                countFirst = dice.count(first)
-                countSecond = dice.count(second)
-                if countFirst == 4 or countSecond == 4:
-                    res = (
-                        countFirst * first if countFirst == 4 else countSecond * second
-                    )
-                else:
-                    res = 0
-
+            if len(s) != 1:
+                for key, value in {elem: dice.count(elem) for elem in s}.items():
+                    if value >= 4:
+                        r = key * 4
             else:
-                res = 0
-
-        case 9 | 10:
-            arr_sort, sete = sorted(dice), set(dice)
-            print(f"arr_sort: {arr_sort}")
-            print(f"sum: {sum(dice)}")
-
-            res = 30 if (len(sete) == 5) else 0
-
+                r = s.pop() * 4
+        case 9:
+            r = 30 if (len(s) == 5) and (sum(dice) == 15) else 0
+        case 10:
+            r = 30 if (len(s) == 5) and (sum(dice) == 20) else 0
         case 11:
-            res = sum(dice)
+            r = sum(dice)
         case 1 | 2 | 3 | 4 | 5 | 6:
-            res = dice.count(category) * category
-    return res
+            r = dice.count(category) * category
+    return r
