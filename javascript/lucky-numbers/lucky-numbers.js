@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 
 /**
  * Calculates the sum of the two input arrays.
@@ -8,7 +8,7 @@
  * @returns {number} sum of the two arrays
  */
 export function twoSum(array1, array2) {
-  throw new Error('Implement the twoSum function');
+  return Number(array1.join("")) + Number(array2.join(""));
 }
 
 /**
@@ -18,7 +18,12 @@ export function twoSum(array1, array2) {
  * @returns {boolean} whether the number is a palindrome or not
  */
 export function luckyNumber(value) {
-  throw new Error('Implement the luckyNumber function');
+  const reversed = [];
+  for(let i = 0; i <= String(value).split("").length; i++){
+    reversed.unshift(String(value).split("")[i])
+  }
+
+  return value == Number(reversed.join(""));
 }
 
 /**
@@ -29,5 +34,10 @@ export function luckyNumber(value) {
  * @returns {string} error message
  */
 export function errorMessage(input) {
-  throw new Error('Implement the errorMessage function');
+  if(!input){
+    return "Required field";
+  }
+
+  const n_in = (Number(input) != input )?  0: Number(input)
+  return (!n_in) ? "Must be a number besides 0": "";
 }
