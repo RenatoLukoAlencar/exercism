@@ -6,6 +6,6 @@ def rectangles(strings: list):
     for l, line in enumerate(newList):
         for r, row in enumerate(line):
             if newList[l][r] == "+":
-                count += 1
+                count += 2
 
     return count
