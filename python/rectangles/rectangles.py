@@ -1,39 +1,28 @@
 def rectangles(strings: list):
-    newList, count = [], 0
-    for s in strings:
-        newList.append(list(s))
+    nL, count = [list(s) for s in strings], 0
 
-    for l, line in enumerate(newList):
-        if l != len(newList) - 1:
-            twoOrMore = line.count("+") >= 2
+    for row, line in enumerate(nL):
+        for column, vertice in enumerate(line):
+            for nextPoint in range(column + 1, len(line)):
+                if vertice == "+" and line[nextPoint] == "+":
+                    topSeg = line[column : nextPoint + 1]
 
-            if twoOrMore:
-                # print(f"line{l +1}: {line}")
-                # print(f"    this line contain {line.count("+")}")
-                lineIndexs = []
-                for c, col in enumerate(line):
-                    if col == "+":
-                        lineIndexs.append(c)
+                    if topSeg.count(" ") == 0:
+                        allSeg = [topSeg]
+                        for i in range(row, len(nL)):
+                            if nL[i][column] == " " or nL[i][nextPoint] == " ":
+                                break
 
-                for startCorner in range(len(lineIndexs)):
-                    if startCorner != len(lineIndexs) - 1:
-                        segment = line[
-                            lineIndexs[startCorner] : lineIndexs[startCorner + 1] + 1
-                        ]
-                        if segment.count(" ") == 0:
-                            # print(f"      segment{startCorner}: {segment}")
+                            seg = nL[i][column : nextPoint + 1]
+                            allSeg.append(seg)
 
-                            allseg = [str(segment)]
-                            seqRow = l + 1
-                            while l + seqRow <= len(newList) - 2:
+                            if (
+                                seg[0] == "+"
+                                and seg[-1] == "+"
+                                and (seg.count(" ") == 0 and seg.count("|") == 0)
+                            ):
+                                count += 1
 
-                                if (
-                                    newList[seqRow][0] == " "
-                                    or newList[seqRow][-1] == " "
-                                ):
-                                    break
-
-                                seqRow += 1
-
-                            count += 1
+                        for x in allSeg:
+                            print(f"xx: {x}")
     return count
